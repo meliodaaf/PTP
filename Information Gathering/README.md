@@ -127,6 +127,15 @@ dnsrecon -d mydomain.com
 
 ## FPING
 
+| Argument               | Description                                                  |
+| :--------------------- | :------------------------------------------------------------|
+| `-a, --alive`          | `show targets that are alive`                                |
+|`-g, --generate`        | `generate target list`                                       |
+|`-A, --addr`            | `show targets by address`                                    |
+|`-q, --quiet`           |`quiet (don't show per-target/per-ping results)`              |
+|`-e, --elapsed`         | `show elapsed time on return packets`                        |
+|`-r, --retry`           | `number of retries (default: 3)`                             |
+
 ```bash
 fping -a -g 192.168.1.0/24
 ```

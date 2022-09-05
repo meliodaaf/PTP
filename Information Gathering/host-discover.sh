@@ -3,19 +3,13 @@
 IP=$1
 MASK=$2
 
-if [ -z $2 ]; then
-MASK=32
-fi
-
-echo Scanning $IP/$MASK
 function find_alive_hosts {
 # Ping sweep
-
-    fping -a -g $IP/$MASK | tee OUTPUTS/alive-hosts.txt
+    fping -a -g $IP/$MASK 2>/dev/null | tee OUTPUTS/$IP-alive-hosts.txt
 }
 
 function dns_discovery {
-    nmap -sS -sU -p53 -n $IP/$MASK | tee OUTPUTS/dns-servers.txt
+    nmap -sS -sU -p53 -n $IP/$MASK | tee OUTPUTS/$IP-dns-servers.txt
 }
 
 function nmap_scan {
@@ -29,5 +23,9 @@ done
 }
 
 
-find_alive_hosts
-dns_discovery
+if [ -z $1 ]; then
+    echo "Usage: sudo host-discovery.sh 10.10.10.0 24"
+else
+    find_alive_hosts
+    dns_discovery
+fi

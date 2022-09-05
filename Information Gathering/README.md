@@ -82,7 +82,13 @@ server NAMESERVER for domain.com
 ls -d mydomain.com
 ```
 ```bash
-dig axfr NAMESERVER domain.com
+dig axfr @NAMESERVER domain.com
+```
+```bash
+dig @NAMESERVER domain.com -t AXFR +nocookie
+```
+```bash
+host -t axfr domain.com 10.50.96.5
 ```
 
 # DNS Reconnaissance Tools
@@ -164,6 +170,10 @@ sudo nmap -sn -PS 192.168.1.1 --disable-arp-ping
 ```bash
 nmap -sS -p53 [netblock]
 nmap -sU -p53 [netblock]
+nmap -sS -sU -p53 10.50.96.0/23
+```
+```bash
+sudo -n -sn -PS22,135,443,445 10.0.0.0/24
 ```
 ## HPING3
 

@@ -25,8 +25,9 @@ function nmap_scan {
 # NMAP Scan each IP grom output.txt
 echo -e "[*] Scanning IPs:\n"
 
-FILE=$(cat OUTPUTS/$IP-ALIVE-HOSTS | sort | uniq)
-for host in $(cat $FILE)
+cat OUTPUTS/$IP-ALIVE-HOSTS | sort | uniq > OUTPUTS/ALL-HOSTS
+
+for host in $(cat OUTPUTS/ALL-HOSTS)
 do
     nmap -A -T4 $host -oN OUTPUTS/$host-INTENSE-SCAN
 done

@@ -11,7 +11,7 @@ function find_alive_hosts {
 function no_ping {
     # Scan network without ping
     nmap -n -sn -PS22,135,443,445 $IP/$MASK -oG OUTPUTS/$IP-NO-PING-SCAN
-    cat OUTPUTS/$IP-NO-PING-SCAN | grep up | awk ' {print $2 } ' | tee -a OUTPUTS/$IP-ALL-HOSTS
+    cat OUTPUTS/$IP-NO-PING-SCAN | grep up | awk ' {print $2 } ' | tee -a OUTPUTS/$IP-ALIVE-HOSTS
 
 }
 
@@ -28,7 +28,7 @@ echo -e "[*] Scanning IPs:\n"
 echo -e "$(cat OUTPUTS/$IP-ALIVE-HOSTS)\n"
 for host in $(cat OUTPUTS/$IP-ALIVE-HOSTS | sort | uniq)
 do
-    nmap -A -T4 $host -oN OUTPUTS/$host-ALL-HOSTS
+    nmap -A -T4 $host -oN OUTPUTS/$host-INTENSE-SCAN
 done
 
 }

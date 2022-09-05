@@ -29,9 +29,9 @@ cat OUTPUTS/$IP-ALIVE-HOSTS | sort | uniq > OUTPUTS/ALL-HOSTS
 echo -e "$(cat OUTPUTS/ALL-HOSTS)\n"
 for host in $(cat OUTPUTS/ALL-HOSTS)
 do
-    echo -e "\n======================================================================================\n"
+    echo -e "\n==============================Scanning $host======================================\n"
     nmap -sS -sC -sV -O $host -oN OUTPUTS/$host-INTENSE-SCAN
-    echo -e "\n======================================================================================\n"
+    echo -e "\n=============================$host End of Scan===============================\n"
 done
 
 }

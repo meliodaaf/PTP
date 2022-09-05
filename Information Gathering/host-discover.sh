@@ -19,7 +19,7 @@ function dns_discovery {
 # Find IPs with port 53 open
     nmap -sS -sU -p53 -n $IP/$MASK -oG OUTPUTS/$IP-NMAP-DNS
     echo -e "\n[*] Host with Port 53 open\n"
-    cat OUTPUTS/$IP-NMAP-DNS | grep open | grep -v "filtered" | awk ' {print $2} ' | tee OUTPUTS/$IP-DNS-SERVERS
+    cat OUTPUTS/$IP-NMAP-DNS | grep open | awk ' {print $2} ' | tee OUTPUTS/$IP-DNS-SERVERS
 }
 
 function dns_enum {
@@ -49,7 +49,8 @@ done
 
 
 if [ -z $1 ]; then
-    echo "Usage: sudo host-discovery.sh 10.10.10.0 24"
+    echo "Usage: <script.sh> <IP> <Subnet> <Domain>"
+    echo "sudo ./host-discovery.sh 10.10.10.0 24 domain.com"
 else
     echo -e "[*] Scanning $IP/$MASK\n"
     echo -e "\n===================SWEEP-SCAN===========================\n"
@@ -59,6 +60,7 @@ else
     echo -e "\n=============FINDING HOST WITH PORT 53 OPEN=============\n"
     dns_discovery
     if [ ! -z $3 ]; then
+        echo -e "\n=================BASIC-DNS-ENUMERATION===================\n"
         dns_enum
     fi
     echo -e "\n==================NMAP INTENSE SCAN=====================\n"

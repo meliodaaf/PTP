@@ -58,6 +58,9 @@ else
     no_ping
     echo -e "\n=============FINDING HOST WITH PORT 53 OPEN=============\n"
     dns_discovery
+    if [ ! -z $3 ]; then
+        dns_enum
+    fi
     echo -e "\n==================NMAP INTENSE SCAN=====================\n"
     nmap_scan
 fi

@@ -5,11 +5,13 @@ MASK=$2
 
 function find_alive_hosts {
 # Ping sweep
-    fping -a -g $IP/$MASK 2>/dev/null | tee OUTPUTS/$IP-alive-hosts.txt
+    fping -a -g $IP/$MASK | tee OUTPUTS/$IP-alive-hosts.txt
 }
 
 function dns_discovery {
-    nmap -sS -sU -p53 -n $IP/$MASK | tee OUTPUTS/$IP-dns-servers.txt
+# Find IPs with port 53 open
+    nmap -sS -sU -p53 -n $IP/$MASK -oG OUTPUTS/$IP-dns-servers
+    cat OUTPUTS/$IP-dns-servers | grep open | awk ' {print $1} ' > $IP-DNS-Servers.txt
 }
 
 function nmap_scan {

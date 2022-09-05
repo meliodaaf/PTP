@@ -25,7 +25,7 @@ function dns_discovery {
 function dns_enum {
     for server in $(cat OUTPUTS/$IP-DNS-SERVERS)
     do
-        echo "[*] Lookup Name Servers"
+        echo -e "\n[*] NS and MX Lookup:\n"
         nslookup -type=NS $DOMAIN $server | tee OUTPUTS/NS-MX
         nslookup -type=MX $DOMAIN $server | tee -a OUTPUTS/NS-MX
     done

@@ -10,16 +10,16 @@ function find_alive_hosts {
 
 function dns_discovery {
 # Find IPs with port 53 open
-    nmap -sS -sU -p53 -n $IP/$MASK -oG OUTPUTS/$IP-dns-servers
-    cat OUTPUTS/$IP-dns-servers | grep open | awk ' {print $1} ' > $IP-DNS-Servers.txt
+    nmap -sS -sU -p53 -n $IP/$MASK -oG OUTPUTS/$IP-NMAP-DNS
+    cat OUTPUTS/$IP-dns-servers | grep open | awk ' {print $2} ' > OUTPUTS/$IP-DNS-Servers.txt
 }
 
 function nmap_scan {
 # NMAP Scan each IP grom output.txt
 
-for i in $(cat OUTPUTS/alive-hosts.txt)
+for host in $(cat OUTPUTS/$IP-alive-hosts.txt)d
 do
-    nmap -sS $i -oN OUTPUTS/$i-scan
+    nmap -sS $host -oN OUTPUTS/$host-scan
 done
 
 }
@@ -30,4 +30,5 @@ if [ -z $1 ]; then
 else
     find_alive_hosts
     dns_discovery
+    nmap_scan
 fi

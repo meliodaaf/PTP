@@ -11,14 +11,16 @@ function find_alive_hosts {
 function no_ping {
     nmap -n -sn -PS22,135,443,445 $IP/$MASK -oG OUTPUTS/$IP-NO-PING-SCAN
     cat OUTPUTS/$IP-NO-PING-SCAN | grep up | awk ' {print $2 } ' > OUTPUTS/$IP-ALL-HOSTS
-    echo "[*] Host with Port 53 open"
-    echo $(cat OUTPUTS/$IP-ALL-HOSTS)
+
 }
 
 function dns_discovery {
 # Find IPs with port 53 open
     nmap -sS -sU -p53 -n $IP/$MASK -oG OUTPUTS/$IP-NMAP-DNS
-    cat OUTPUTS/$IP-NMAP-DNS | grep open | awk ' {print $2} ' > OUTPUTS/$IP-DNS-SERVERS
+    echo -e "\n[*] Host with Port 53 open"
+    cat OUTPUTS/$IP-NMAP-DNS | grep open | awk ' {print $2} ' | tee OUTPUTS/$IP-DNS-SERVERS
+    
+
 }
 
 function nmap_scan {
@@ -36,10 +38,10 @@ if [ -z $1 ]; then
     echo "Usage: sudo host-discovery.sh 10.10.10.0 24"
 else
     echo -e "[*] Scanning $IP/$MASK\n"
-    echo -e "===================SWEEP-SCAN===========================\n"
+    echo -e "\n===================SWEEP-SCAN===========================\n"
     find_alive_hosts
-    echo -e "=============FINDING HOST WITH PORT 53 OPEN=============\n"
+    echo -e "\n=============FINDING HOST WITH PORT 53 OPEN=============\n"
     dns_discovery
-    echo -e "==================NMAP INTENSE SCAN=====================\n"
+    echo -e "\n==================NMAP INTENSE SCAN=====================\n"
     nmap_scan
 fi

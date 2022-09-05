@@ -24,7 +24,8 @@ function dns_discovery {
 
 function nmap_scan {
 # NMAP Scan each IP grom output.txt
-
+echo -e "[*] Scanning IPs:\n"
+echo "$(cat OUTPUTS/$IP-ALIVE-HOSTS)\n"
 for host in $(cat OUTPUTS/$IP-ALIVE-HOSTS)
 do
     nmap -A -T4 $host -oN OUTPUTS/$host-ALL-HOSTS

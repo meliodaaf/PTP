@@ -29,7 +29,7 @@ cat OUTPUTS/$IP-ALIVE-HOSTS | sort | uniq > OUTPUTS/ALL-HOSTS
 echo -e "$(cat OUTPUTS/ALL-HOSTS)\n"
 for host in $(cat OUTPUTS/ALL-HOSTS)
 do
-    nmap -A -T4 $host -oN OUTPUTS/$host-INTENSE-SCAN
+    nmap -sS -sC -sV -O $host -oN OUTPUTS/$host-INTENSE-SCAN
 done
 
 }

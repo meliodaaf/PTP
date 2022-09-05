@@ -30,10 +30,10 @@ function dns_enum {
         nslookup -type=MX $DOMAIN $server | tee -a OUTPUTS/NS-MX
 
         echo -e "\n[*] Testing Zone Transfer using DIG:\n"
-        dig @$server $DOMAIN -t AXFR +nocookie
+        dig @$server $DOMAIN -t AXFR +nocookie | tee OUTPUTS/ZONE-TRANSFER
         
-        echo -e "\n[*] Testing Zone Transfer using HOST:\n"
-        host -t axfr $DOMAIN $server
+        # echo -e "\n[*] Testing Zone Transfer using HOST:\n"
+        # host -t axfr $DOMAIN $server
     done
 
 }

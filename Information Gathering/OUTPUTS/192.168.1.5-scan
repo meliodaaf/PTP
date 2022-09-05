@@ -1,0 +1,8 @@
+# Nmap 7.92 scan initiated Mon Sep  5 16:32:59 2022 as: nmap -sS -oN OUTPUTS/192.168.1.5-scan 192.168.1.5
+Nmap scan report for 192.168.1.5
+Host is up (0.0014s latency).
+Not shown: 999 closed tcp ports (reset)
+PORT     STATE SERVICE
+8180/tcp open  unknown
+
+# Nmap done at Mon Sep  5 16:32:59 2022 -- 1 IP address (1 host up) scanned in 0.17 seconds

@@ -1,0 +1,9 @@
+# Nmap 7.92 scan initiated Mon Sep  5 16:33:01 2022 as: nmap -sS -oN OUTPUTS/192.168.1.14-scan 192.168.1.14
+Nmap scan report for 192.168.1.14
+Host is up (0.0052s latency).
+Not shown: 999 closed tcp ports (reset)
+PORT     STATE    SERVICE
+9080/tcp filtered glrpc
+MAC Address: 1E:CF:83:E8:1B:12 (Unknown)
+
+# Nmap done at Mon Sep  5 16:33:21 2022 -- 1 IP address (1 host up) scanned in 20.32 seconds

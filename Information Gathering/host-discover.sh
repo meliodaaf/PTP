@@ -9,18 +9,17 @@ function find_alive_hosts {
 }
 
 function no_ping {
+    # Scan network without ping
     nmap -n -sn -PS22,135,443,445 $IP/$MASK -oG OUTPUTS/$IP-NO-PING-SCAN
-    cat OUTPUTS/$IP-NO-PING-SCAN | grep up | awk ' {print $2 } ' > OUTPUTS/$IP-ALL-HOSTS
+    cat OUTPUTS/$IP-NO-PING-SCAN | grep up | awk ' {print $2 } ' | tee OUTPUTS/$IP-ALL-HOSTS
 
 }
 
 function dns_discovery {
 # Find IPs with port 53 open
     nmap -sS -sU -p53 -n $IP/$MASK -oG OUTPUTS/$IP-NMAP-DNS
-    echo -e "\n[*] Host with Port 53 open"
+    echo -e "\n[*] Host with Port 53 open\n"
     cat OUTPUTS/$IP-NMAP-DNS | grep open | awk ' {print $2} ' | tee OUTPUTS/$IP-DNS-SERVERS
-    
-
 }
 
 function nmap_scan {
@@ -40,6 +39,8 @@ else
     echo -e "[*] Scanning $IP/$MASK\n"
     echo -e "\n===================SWEEP-SCAN===========================\n"
     find_alive_hosts
+    echo -e "\n================SWEEP-SCAN-NO-PING=======================\n"
+    no_ping
     echo -e "\n=============FINDING HOST WITH PORT 53 OPEN=============\n"
     dns_discovery
     echo -e "\n==================NMAP INTENSE SCAN=====================\n"

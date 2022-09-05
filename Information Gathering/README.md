@@ -157,9 +157,10 @@ fping -q -a -g 192.168.1.0/24 -r 0 -e
 | :--------------------- | :------------------------------------------------------------ |
 | `-sn`                  | `Ping Scan - disable port scanth a domain name, usually FQDN` |
 |`-PS/PA/PU/PY[portlist]`| `TCP SYN/ACK, UDP or SCTP discovery to given ports`           |
+|`-PE`                    | `ICMP Echo`                                                   |
 |`-sS`                   | `TCP Syn Scan`                                                |
 |`-sU`                   |`UDP Syn Scan`                                                 |
-|`-n/-R`                    | `Never do DNS resolution/Always resolve`                   |
+|`-n/-R`                 | `Never do DNS resolution/Always resolve`                      | 
 
 ```bash
 sudo nmap -sn 10.0.0.0/24

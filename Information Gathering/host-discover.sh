@@ -2,6 +2,7 @@
 
 IP=$1
 MASK=$2
+DOMAIN=$3
 
 function find_alive_hosts {
 # Ping sweep
@@ -18,7 +19,17 @@ function dns_discovery {
 # Find IPs with port 53 open
     nmap -sS -sU -p53 -n $IP/$MASK -oG OUTPUTS/$IP-NMAP-DNS
     echo -e "\n[*] Host with Port 53 open\n"
-    cat OUTPUTS/$IP-NMAP-DNS | grep open | awk ' {print $2} ' | tee OUTPUTS/$IP-DNS-SERVERS
+    cat OUTPUTS/$IP-NMAP-DNS | grep open | grep -v "filtered" | awk ' {print $2} ' | tee OUTPUTS/$IP-DNS-SERVERS
+}
+
+function dns_enum {
+    for server in $(cat OUTPUTS/$IP-DNS-SERVERS)
+    do
+        echo "[*] Lookup Name Servers"
+        nslookup -type=NS $DOMAIN $server | tee OUTPUTS/NS-MX
+        nslookup -type=MX $DOMAIN $server | tee -a OUTPUTS/NS-MX
+    done
+
 }
 
 function nmap_scan {

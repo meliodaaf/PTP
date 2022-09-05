@@ -28,6 +28,12 @@ function dns_enum {
         echo -e "\n[*] NS and MX Lookup:\n"
         nslookup -type=NS $DOMAIN $server | tee OUTPUTS/NS-MX
         nslookup -type=MX $DOMAIN $server | tee -a OUTPUTS/NS-MX
+
+        echo -e "\n[*] Testing Zone Transfer using DIG:\n"
+        dig @$server $DOMAIN -t AXFR +nocookie
+        
+        echo -e "\n[*] Testing Zone Transfer using HOST:\n"
+        host -t axfr $DOMAIN $server
     done
 
 }
